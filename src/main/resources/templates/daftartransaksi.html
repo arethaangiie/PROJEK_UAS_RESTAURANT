@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Daftar Transaksi</title>
+    <link rel="stylesheet" th:href="@{/css/style.css}">
+    <link rel="stylesheet" type="text/css" href="/css/transaksi.css"/>
+</head>
+<body>
+    <h1>Daftar Transaksi</h1>
+<a th:href="@{/transaksi/delivery-list}" class="btn">Delivery</a>
+<a th:href="@{/transaksi/dinein-list}" class="btn">Dine-In</a>
+<a th:href="@{/transaksi/takeaway-list}" class="btn">Takeaway</a>
+
+    <p><a th:href="@{/transaksi}">Kembali ke Pilihan Transaksi</a></p>
+</body>
+</html>

@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="utf-8">
+    <title>Transaksi - Pilih Tipe</title>
+    <link rel="stylesheet" th:href="@{/css/style.css}">
+    <link rel="stylesheet" type="text/css" href="/css/transaksi.css"/>
+</head>
+
+<body>
+    <h1>WELCOME TO RESTAURANT OMG</h1>
+    <H2>PILIH TIPE TRANSAKSI</H2>
+
+    <div>
+        <a th:href="@{/transaksi/dinein}">Dine-In</a> |
+        <a th:href="@{/transaksi/takeaway}">Takeaway</a> |
+        <a th:href="@{/transaksi/delivery}">Delivery</a> |
+        <a th:href="@{/menu}">Lihat Menu</a>
+    </div>
+
+    <H3>LIHAT DAFTAR TRANSAKSI RESTAURANT</H3>
+    <a th:href="@{/transaksi/daftar}">Daftar</a>
+
+
+    <hr />
+</body>
+
+</html>

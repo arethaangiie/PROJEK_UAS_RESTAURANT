@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="utf-8">
+    <title>Delivery</title>
+    <link rel="stylesheet" th:href="@{/css/style.css}">
+    <link rel="stylesheet" type="text/css" href="/css/delivery.css" />
+</head>
+
+<body>
+    <!-- NAV -->
+    <div class="nav-links" style="margin:20px;">
+        <a th:href="@{/transaksi}">Transaksi</a> |
+        <a th:href="@{/transaksi/dinein}">Dine-In</a> |
+        <a th:href="@{/menu}">Menu</a> |
+        <a th:href="@{/transaksi/takeaway}">Takeaway</a>
+    </div>
+
+    <h1>Form Delivery</h1>
+
+    <!-- FORM TAMBAH MENU KE PESANAN AKTIF -->
+    <form method="post"
+        th:attr="action=${editMode} ? @{/transaksi/delivery/submit/{id}(id=${deliveryInfo.id})} : @{/transaksi/delivery/add-menu}">
+
+        <!-- FORM MENU hanya muncul kalau mode tambah -->
+        <div th:if="${!editMode}">
+            <label>Menu:
+                <select name="menuId" required>
+                    <option value="" disabled selected>Pilih Menu</option>
+
+                    <option th:each="m : ${menuList}" th:value="${m.menuId}"
+                        th:text="${m.namaMenu + ' - ' + #numbers.formatDecimal(m.harga, 0, 'COMMA', 0, 'POINT')}">
+                    </option>
+                </select>
+            </label>
+
+            <label>Qty:
+                <input type="number" name="qty" value="1" min="1" required />
+            </label>
+
+            <label>Ukuran:
+                <select name="ukuran">
+                    <option value="Regular">Regular</option>
+                    <option value="Large">Large</option>
+                </select>
+            </label>
+        </div>
+
+        <!-- FORM delivery info -->
+        <div>
+            <label>Metode Pengantaran:
+                <select name="metodePengantaran" required>
+                    <option value="" disabled selected>Pilih Metode Pengantaran</option>
+                    <option value="Gosend"
+                        th:selected="${editMode and deliveryInfo.metodePengantaran == 'Gosend'}">
+                        Gosend</option>
+                    <option value="Grab Express"
+                        th:selected="${editMode and deliveryInfo.metodePengantaran == 'Grab Express'}">
+                        Grab Express</option>
+                </select>
+            </label>
+
+            <label>Lokasi Pengantaran:
+                <input type="text" name="lokasiPengantaran" required
+                value=""
+                    th:value="${editMode} ? ${deliveryInfo.lokasiPengantaran} : ${DeliveryAktif.lokasiPengantaran}" />
+            </label>
+        </div>
+
+        <button type="submit" th:text="${editMode} ? 'Simpan Perubahan' : 'Tambah Menu'"></button>
+    </form>
+
+    <hr />
+
+    <!--   TABEL PESANAN AKTIF USER    -->
+
+    <h2>Pesanan Aktif</h2>
+
+    <table>
+        <thead>
+            <tr>
+                <th>Menu</th>
+                <th>Qty</th>
+                <th>Ukuran</th>
+                <th>Harga Satuan</th>
+                <th>Subtotal</th>
+            </tr>
+        </thead>
+
+        <tbody>
+            <tr th:each="p : ${pesananAktif}">
+                <td th:text="${menuById[p.key.split('_')[0]].namaMenu}"></td>
+                <td th:text="${p.value.qty}"></td>
+                <td th:text="${p.value.ukuran}"></td>
+                <td th:text="'Rp ' + ${#numbers.formatDecimal(p.value.hargaSatuan,0,'COMMA',0,'POINT')}"></td>
+                <td th:text="'Rp ' + ${#numbers.formatDecimal(p.value.subtotal,0,'COMMA',0,'POINT')}"></td>
+            </tr>
+
+            <tr th:if="${#lists.isEmpty(pesananAktif)}">
+                <td colspan="5"><i>Belum ada pesanan</i></td>
+            </tr>
+        </tbody>
+    </table>
+
+    <!-- tombol checkout -->
+    <form th:action="@{/transaksi/delivery/checkout}" method="post" th:if="${!editMode}">
+        <button type="submit">Simpan Delivery</button>
+    </form>
+
+    <hr/>
+
+    
+</body>
+
+</html>

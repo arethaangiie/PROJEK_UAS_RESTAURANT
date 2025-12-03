@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Konfirmasi Dine In</title>
+    <link rel="stylesheet" th:href="@{/css/style.css}">
+    <link rel="stylesheet" type="text/css" href="/css/konfirm.css" />
+</head>
+<body>
+    <h2>Konfirmasi Dine-In</h2>
+
+    <h3>Data Meja</h3>
+    <p>No. Meja: <b th:text="${take.sitNo}"></b></p>
+    <p>Jumlah Orang (Pax): <b th:text="${take.pax}"></b></p>
+
+    <h3>Daftar Pesanan</h3>
+    <table border="1" cellpadding="5">
+        <tr>
+            <th>Menu</th>
+            <th>Ukuran</th>
+            <th>Qty</th>
+            <th>Harga</th>
+            <th>Subtotal</th>
+            <th>Aksi</th>
+        </tr>
+
+        <tr th:each="entry : ${transaksi}">
+            <td th:text="${namaMenu[entry.key]}"></td>
+            <td th:text="${entry.value.ukuran}"></td>
+            <td th:text="${entry.value.qty}"></td>
+            <td th:text="${entry.value.hargaSatuan}"></td>
+            <td th:text="${entry.value.subtotal}"></td>
+
+            <td>
+                <a th:href="@{'/transaksi/dinein/konfirm/delete/' + ${entry.key}}">Hapus</a> |
+                <a th:href="@{/transaksi/dinein/konfirm/edit}">Edit Pesanan</a>
+            </td>
+        </tr>
+    </table>
+
+    <br>
+
+    <form th:action="@{/transaksi/dinein/konfirm/save}" method="post">
+        <button type="submit">SIMPAN FINAL</button>
+    </form>
+</body>
+</html>

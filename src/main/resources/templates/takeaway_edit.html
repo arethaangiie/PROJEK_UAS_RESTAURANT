@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Edit Takeaway</title>
+    <link rel="stylesheet" th:href="@{/css/style.css}">
+    <link rel="stylesheet" type="text/css" href="/css/edit.css" />
+
+</head>
+<body>
+     <h2>Edit TakeAway</h2>
+
+<form th:action="@{/transaksi/takeaway/konfirm/edit/save}" method="post">
+
+    <p>
+        Pickup Time:
+        <input type="time" name="pick"  min="08:00" max="21:00" required  th:value="${pick}">
+    </p>
+
+    <p>
+        Packaging Type:
+        <select name="pack" th:value="${pack}" >
+            <option>Plastic</option>
+            <option>Box</option>
+            <option>Paperbag</option>
+        </select>
+    </p>
+
+    <button type="submit">Simpan</button>
+</form>
+
+<p><a th:href="@{/transaksi/takeaway/konfirm}">Kembali</a></p>
+
+</body>
+</html>

@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Takeaway</title>
+    <link rel="stylesheet" th:href="@{/Table.css}">
+</head>
+
+<body>
+    <h2>Takeaway Orders</h2>
+
+    <form th:action="@{/takeaway/submit}" th:object="${takeAwayInfo}" method="post">
+        <label>Packaging Type: <input type="text" th:field="*{packagingType}" /></label>
+        <label>Pickup Time (HH:MM:SS): <input type="date" th:field="*{pickupTime}" /></label>
+        <label>Jumlah: <input type="number" th:field="*{quantity}" /></label>
+        <button type="submit" name="add">Add</button>
+    </form>
+
+    <table class="styled-table">
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>No Order</th>
+                <th>Packaging</th>
+                <th>Pickup</th>
+                <th>Jumlah</th>
+                <th>Aksi</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr th:each="t : ${takeAwayList}">
+                <td th:text="${t.id}"></td>
+                <td th:text="${t.orderNo}"></td>
+                <td th:text="${t.packagingType}"></td>
+                <td th:text="${t.pickUpTime}"></td>
+                <td th:text="${t.quantity}"></td>
+                <td>
+                    <a th:href="@{|/takeaway/${t.id}|}">Edit</a>
+                    <form th:action="@{|/takeaway/submit/${t.id}|}" method="post" style="display:inline;">
+                        <button type="submit" name="delete">Delete</button>
+                    </form>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</body>
+
+</html>

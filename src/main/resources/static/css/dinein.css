@@ -1,0 +1,175 @@
+body {
+    font-family: "Poppins", sans-serif;
+    background-color: #f9f4ef;
+    margin: 0;
+    padding: 0;
+}
+
+h1, h2 {
+    text-align: center;
+    color: #2c2c2c;
+    margin-top: 30px;
+    font-weight: 600;
+    letter-spacing: 1px;
+}
+
+.nav-links {
+    text-align: center;
+    padding: 20px 0;
+    background: #fff8e7;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+}
+
+.nav-links a {
+    text-decoration: none;
+    font-size: 18px;
+    color: #b8860b;
+    padding: 10px 18px;
+    border: 2px solid transparent;
+    border-radius: 8px;
+    transition: 0.3s;
+    font-weight: 500;
+}
+
+.nav-links a:hover {
+    color: white;
+    background-color: #b8860b;
+    border-color: #b8860b;
+    box-shadow: 0 4px 10px rgba(184,134,11,0.3);
+}
+
+form {
+    text-align: center;
+    margin-top: 25px;
+}
+
+form label {
+    margin: 0 10px;
+    font-size: 16px;
+    font-weight: 500;
+}
+
+input[type="text"],
+input[type="number"],
+select {
+    padding: 8px 10px;
+    border: 2px solid #b8860b;
+    border-radius: 6px;
+    margin-left: 5px;
+    outline: none;
+    transition: 0.2s;
+}
+
+input:focus,
+select:focus {
+    border-color: #d4a017;
+    box-shadow: 0 0 4px rgba(184,134,11,0.5);
+}
+
+button {
+    padding: 10px 16px;
+    background-color: #b8860b;
+    color: white;
+    border: none;
+    border-radius: 8px;
+    font-size: 15px;
+    cursor: pointer;
+    margin: 8px 5px;
+    transition: 0.3s;
+}
+
+button:hover {
+    background-color: #d4a017;
+    box-shadow: 0 4px 10px rgba(184,134,11,0.4);
+}
+
+form[action*="dinein/add-menu"] button[name="add"] {
+    display: block;      
+    margin: 15px auto;    
+}
+
+form[action*="dinein/checkout"] button {
+    display: block;
+    margin: 15px auto;
+    margin-top: 25px;     
+}
+
+table {
+    width: 90%;
+    margin: 30px auto;
+    border-collapse: collapse;
+    background-color: white;
+    border-radius: 10px;
+    overflow: hidden;
+    box-shadow: 0 3px 10px rgba(0,0,0,0.1);
+}
+
+thead {
+    background-color: #b8860b;
+    color: white;
+}
+
+thead th {
+    padding: 14px;
+    text-align: center;
+    font-size: 16px;
+    letter-spacing: 0.5px;
+}
+
+tbody td {
+    padding: 12px;
+    text-align: center;
+    border-bottom: 1px solid #eee;
+    font-size: 15px;
+}
+
+tbody tr:nth-child(even) {
+    background-color: #fcfaf6;
+}
+
+td ul {
+    padding: 0;
+    margin: 0;
+    list-style: none;
+}
+
+td ul li {
+    margin: 4px 0;
+}
+
+hr {
+    width: 70%;
+    margin: 40px auto;
+    border: none;
+    height: 2px;
+    background: linear-gradient(to right, transparent, #b8860b, transparent);
+}
+p {
+    width: 90%;
+    margin: 20px auto 0 auto;
+    text-align: left;
+}
+
+p > a {
+    display: inline-block;
+    padding: 10px 18px;
+    background-color: #b8860b;
+    color: white !important;
+    border: none;
+    border-radius: 8px;
+    font-size: 16px;
+    font-weight: 500;
+    cursor: pointer;
+    text-decoration: none;
+    transition: 0.3s;
+}
+
+p > a:hover {
+    background-color: #d4a017;
+    box-shadow: 0 4px 10px rgba(184,134,11,0.4);
+}
+
+
+form[action*="dinein/add-menu"] button[name="add"] {
+    margin-top: 25px; 
+}

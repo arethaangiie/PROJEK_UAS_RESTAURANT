@@ -1,0 +1,167 @@
+body {
+    font-family: "Poppins", sans-serif;
+    background-color: #f9f4ef;
+    margin: 0;
+    padding: 0;
+}
+
+h2 {
+    text-align: center;
+    margin-top: 20px;
+    color: #2c2c2c;
+    letter-spacing: 1px;
+    font-weight: 600;
+}
+
+.nav-links {
+    text-align: center;
+    padding: 15px 0;
+    background: #fff8e7;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+    margin-bottom: 25px;
+}
+
+.nav-links a {
+    text-decoration: none;
+    font-size: 18px;
+    color: #b8860b;
+    padding: 10px 18px;
+    border-radius: 8px;
+    transition: 0.3s;
+}
+
+.nav-links a:hover {
+    background-color: #b8860b;
+    color: white;
+    box-shadow: 0 4px 10px rgba(184,134,11,0.3);
+}
+
+.first-box {
+    width: 90%;
+    margin: 0 auto;
+    padding: 20px;
+}
+
+.styled-table {
+    width: 100%;
+    border-collapse: collapse;
+    background-color: white;
+    border-radius: 12px;
+    overflow: hidden;
+    box-shadow: 0 3px 12px rgba(0,0,0,0.1);
+}
+
+.styled-table thead {
+    background-color: #b8860b;
+    color: white;
+}
+
+.styled-table thead th {
+    padding: 14px;
+    font-size: 16px;
+    text-align: center;
+    letter-spacing: 0.5px;
+}
+
+.styled-table tbody tr {
+    border-bottom: 1px solid #eee;
+    transition: 0.25s;
+}
+
+.styled-table tbody td {
+    padding: 12px;
+    text-align: center;
+    font-size: 15px;
+}
+
+.styled-table tbody tr:nth-child(even) {
+    background-color: #fcfaf6;
+}
+
+.styled-table tbody tr:hover {
+    background-color: #f3e9d8;
+}
+
+.second-box {
+    width: 400px;
+    margin: 30px auto;
+    background: #ffffff;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.08);
+    text-align: center;
+}
+
+#feedback-form input {
+    width: 90%;
+    padding: 8px;
+    border-radius: 6px;
+    border: 1px solid #c9b78c;
+    margin-top: 5px;
+}
+
+#feedback-form label {
+    margin-top: 10px;
+    display: block;
+    font-size: 14px;
+}
+
+#feedback-form button {
+    margin-top: 15px;
+    padding: 8px 12px;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+}
+
+
+#feedback-form button[name="add"], 
+#feedback-form button[name="edit"] {
+    background: #b8860b;
+    color: white;
+}
+
+#feedback-form button[name="add"]:hover, 
+#feedback-form button[name="edit"]:hover {
+    background: #8c690a;
+}
+
+#feedback-form button[name="delete"] {
+    background: #d9534f;
+    color: white;
+}
+
+#feedback-form button[name="delete"]:hover {
+    background: #b72a26;
+}
+
+/* Style button dalam tabel action */
+.styled-table button {
+    padding: 6px 12px;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+    font-size: 14px;
+    margin: 2px;
+}
+
+/* Tombol Edit sama seperti Tambah */
+.styled-table form button[type="submit"]:not([name="delete"]) {
+    background-color: #b8860b;
+    color: white;
+}
+
+.styled-table form button[type="submit"]:not([name="delete"]):hover {
+    background-color: #8c690a;
+}
+
+/* Tombol Delete merah */
+.styled-table form button[name="delete"] {
+    background-color: #d9534f;
+    color: white;
+}
+
+.styled-table form button[name="delete"]:hover {
+    background-color: #b72a26;
+}
+

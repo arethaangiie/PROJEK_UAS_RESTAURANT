@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="utf-8">
+    <title>Dine-In</title>
+    <link rel="stylesheet" th:href="@{/css/style.css}">
+    <link rel="stylesheet" type="text/css" href="/css/dinein.css"/>
+</head>
+
+<body>
+
+    <!-- NAV -->
+    <div class="nav-links" style="margin:20px;">
+        <a th:href="@{/transaksi}">Transaksi</a> |
+        <a th:href="@{/transaksi/delivery}">Delivery</a> |
+        <a th:href="@{/menu}">Menu</a> |
+        <a th:href="@{/transaksi/takeaway}">Takeaway</a>
+    </div>
+
+    <h1>Form Dine-In</h1>
+
+    <!-- FORM TAMBAH MENU + INPUT -->
+    <form method="post"
+        th:attr="action=${editMode} ? @{/transaksi/dinein/submit/{id}(id=${dineInInfo.id})}
+                                   : @{/transaksi/dinein/add-menu}">
+
+        <!-- MUNCUL JIKA MODE TAMBAH -->
+        <div th:if="${!editMode}">
+            <label>Menu:
+                <select name="menuId" required>
+                    <option value="" disabled selected>Pilih Menu</option>
+                    <option th:each="m : ${menuList}" th:value="${m.menuId}"
+                            th:text="${m.namaMenu + ' - ' + #numbers.formatDecimal(m.harga,0,'COMMA',0,'POINT')}"></option>
+                </select>
+            </label>
+
+            <label>Qty:
+                <input type="number" name="qty" value="1" min="1" required />
+            </label>
+
+            <label>Ukuran:
+                <select name="ukuran">
+                    <option value="Regular">Regular</option>
+                    <option value="Large">Large</option>
+                </select>
+            </label>
+        </div>
+
+        <!-- INPUT DINE-IN -->
+        <div>
+            <label>No Kursi:
+                <select name="sitNo" required>
+                    <option value="" disabled selected>Pilih Nomor Kursi</option>
+                    <option th:each="i : ${#numbers.sequence(1,10)}"
+                            th:value="${i}"
+                            th:selected="${editMode and dineInInfo.sitNo == i}"
+                            th:text="${i}"></option>
+                </select>
+            </label>
+
+            <label>Pax:
+                <input type="number" name="pax" min="1" required
+                    th:value="${editMode} ? ${dineInInfo.pax} : ${DineInAktif.pax}" />
+            </label>
+        </div>
+
+        <button type="submit" th:text="${editMode} ? 'Simpan Perubahan' : 'Tambah Menu'"></button>
+    </form>
+
+    <hr/>
+
+    <!--         PESANAN AKTIF         -->
+    <h2>Pesanan Aktif</h2>
+
+    <table>
+        <thead>
+            <tr>
+                <th>Menu</th>
+                <th>Qty</th>
+                <th>Ukuran</th>
+                <th>Harga Satuan</th>
+                <th>Subtotal</th>
+            </tr>
+        </thead>
+
+        <tbody>
+            <tr th:each="p : ${pesananAktif}">
+                <td th:text="${menuById[p.key.split('_')[0]].namaMenu}"></td>
+                <td th:text="${p.value.qty}"></td>
+                <td th:text="${p.value.ukuran}"></td>
+                <td th:text="'Rp ' + ${#numbers.formatDecimal(p.value.hargaSatuan,0,'COMMA',0,'POINT')}"></td>
+                <td th:text="'Rp ' + ${#numbers.formatDecimal(p.value.subtotal,0,'COMMA',0,'POINT')}"></td>
+            </tr>
+
+            <tr th:if="${#lists.isEmpty(pesananAktif)}">
+                <td colspan="5"><i>Belum ada pesanan</i></td>
+            </tr>
+        </tbody>
+    </table>
+
+    <!-- TOMBOL CHECKOUT -->
+    <form th:action="@{/transaksi/dinein/checkout}" method="post" th:if="${!editMode}">
+        <button type="submit">Simpan Dine-In</button>
+    </form>
+
+    <hr/>
+    <p><a th:href="@{/transaksi}">Kembali</a></p>
+
+</body>
+</html>

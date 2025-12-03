@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Delivery</title>
+    <link rel="stylesheet" th:href="@{/Table.css}">
+</head>
+
+<body>
+    <h2>Delivery Orders</h2>
+
+    <form th:action="@{/delivery/submit}" th:object="${deliveryInfo}" method="post">
+        <label>Metode Pengantaran: <input type="text" th:field="*{metodePengantaran}" /></label>
+        <label>Lokasi Pengantaran: <input type="text" th:field="*{lokasiPengantaran}" /></label>
+        <label>Jumlah: <input type="number" th:field="*{quantity}" /></label>
+        <button type="submit" name="add">Add</button>
+    </form>
+
+    <table class="styled-table">
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>No Order</th>
+                <th>Metode</th>
+                <th>Lokasi</th>
+                <th>Jumlah</th>
+                <th>Aksi</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr th:each="d : ${deliveryList}">
+                <td th:text="${d.id}"></td>
+                <td th:text="${d.orderNo}"></td>
+                <td th:text="${d.metodePengantaran}"></td>
+                <td th:text="${d.lokasiPengantaran}"></td>
+                <td th:text="${d.quantity}"></td>
+                <td>
+                    <a th:href="@{|/delivery/${d.id}|}">Edit</a>
+                    <form th:action="@{|/delivery/submit/${d.id}|}" method="post" style="display:inline;">
+                        <button type="submit" name="delete">Delete</button>
+                    </form>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</body>
+
+</html>

@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Edit Delivery</title>
+    <link rel="stylesheet" th:href="@{/css/style.css}">
+    <link rel="stylesheet" type="text/css" href="/css/edit.css" />
+
+</head>
+<body>
+    <h2>Edit Delivery</h2>
+
+<form th:action="@{/transaksi/delivery/konfirm/edit/save}" method="post">
+
+    <p>
+        Metode Pengantaran:
+        <select name="metode" th:value="${metode}">
+            <option>Delivery</option>
+            <option>GoSend</option>
+            <option>GrabExpress</option>
+        </select>
+    </p>
+
+    <p>
+        Lokasi Pengantaran:
+        <input type="text" name="lokasi" required value="" th:value="${lokasi}">
+    </p>
+
+    <button type="submit">Simpan</button>
+</form>
+
+<p><a th:href="@{/transaksi/delivery/konfirm}">Kembali</a></p>
+
+</body>
+</html>

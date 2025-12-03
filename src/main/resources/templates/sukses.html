@@ -1,0 +1,48 @@
+<link rel="stylesheet" type="text/css" href="/css/suksestakeaway.css"/>
+
+<div class="sukses-wrapper">
+<h2>Transaksi Berhasil!</h2>
+
+<h3>Detail Pesanan</h3>
+
+<table border="1" cellpadding="5">
+    <tr>
+        <th>Menu ID</th>
+        <th>Menu</th>
+        <th>Ukuran</th>
+        <th>Qty</th>
+        <th>Harga Satuan</th>
+        <th>Subtotal</th>
+    </tr>
+
+    <tr th:each="entry : ${transaksi}">
+        <!-- KEY: menu_id -->
+        <td th:text="${entry.key}"></td>
+        <td th:text="${namaMenu[entry.key]}"></td>
+
+        <!-- VALUE: JumlahHargaRestoran -->
+        <td th:text="${entry.value.ukuran}"></td>
+        <td th:text="${entry.value.qty}"></td>
+        <td th:text="'Rp ' + ${#numbers.formatDecimal(entry.value.hargaSatuan,0,'COMMA',0,'POINT')}"></td>
+        <td th:text="'Rp ' + ${#numbers.formatDecimal(entry.value.subtotal,0,'COMMA',0,'POINT')}"></td>
+    </tr>
+</table>
+
+<br>
+
+<h3>Total Harga Pesanan:
+    <span th:text="'Rp ' + ${#numbers.formatDecimal(take.hitungTotal(),0,'COMMA',0,'POINT')}"></span>
+</h3>
+
+<h3>Pesanan + Biaya Packaging:
+    <span th:text="'Rp ' + ${#numbers.formatDecimal(take.getTotalHargaFinal(),0,'COMMA',0,'POINT')}"></span>
+</h3>
+
+<h3>Pickup Time: <span th:text="${take.pickupTime}"></span></h3>
+
+<h3>Packaging: <span th:text="${take.packagingType}"></span></h3>
+<h3>Order No: <span th:text="${take.orderNo}"></span></h3>
+<h3>Status Pesanan: <span th:text="${take.statusOrder()}"></span></h3>
+
+    <p><a th:href="@{/transaksi}">Kembali</a></p>
+    </div>

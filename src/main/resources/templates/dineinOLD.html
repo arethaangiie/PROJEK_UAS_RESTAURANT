@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Dine-In</title>
+    <link rel="stylesheet" th:href="@{/Table.css}">
+</head>
+
+<body>
+    <h2>Dine-In Orders</h2>
+
+    <form th:action="@{/dinein/submit}" th:object="${dineInInfo}" method="post">
+        <input type="hidden" name="id" th:value="${dineInInfo.id}" />
+        <label>No Meja: <input type="text" th:field="*{sitNo}" /></label>
+        <label>Pax: <input type="text" th:field="*{pax}" /></label>
+        <label>Jumlah: <input type="number" th:field="*{quantity}" /></label>
+        <label>Ukuran: <input type="text" th:field="*{ukuran}" /></label>
+        <button type="submit" name="add">Add</button>
+    </form>
+
+    <table class="styled-table">
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>No Order</th>
+                <th>No Meja</th>
+                <th>Pax</th>
+                <th>Jumlah</th>
+                <th>Aksi</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr th:each="d : ${dineInList}">
+                <td th:text="${d.orderNo}"></td>
+                <td th:text="${d.sitNo}"></td>
+                <td th:text="${d.pax}"></td>
+                <td th:text="${d.quantity}"></td>
+                <td>
+                    <a th:href="@{|/dinein/${d.id}|}">Edit</a>
+                    <form th:action="@{|/dinein/submit/${d.id}|}" method="post" style="display:inline;">
+                        <button type="submit" name="delete">Delete</button>
+                    </form>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</body>
+
+</html>

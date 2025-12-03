@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Delivery-List</title>
+    <link rel="stylesheet" th:href="@{/css/style.css}">
+    <link rel="stylesheet" type="text/css" href="/css/delivery.css" />
+</head>
+
+<body>
+
+    <h2>Daftar Delivery</h2>
+
+    <table>
+        <thead>
+            <tr>
+                <th>Order No</th>
+                <th>Metode</th>
+                <th>Lokasi</th>
+                <th>Detail Pesanan</th>
+                <th>Total</th>
+                <th>Aksi</th>
+            </tr>
+        </thead>
+
+        <tbody>
+            <tr th:each="dl : ${deliveryList}">
+                <td th:text="${dl.orderNo}"></td>
+                <td th:text="${dl.metodePengantaran}"></td>
+                <td th:text="${dl.lokasiPengantaran}"></td>
+
+                <td>
+                    <ul>
+                        <li th:each="entry : ${dl.pesanan}">
+                            <span th:text="${menuById[entry.key.split('_')[0]].namaMenu}"></span> -
+                            <span th:text="${entry.value.qty}"></span> x
+                            <span
+                                th:text="'Rp ' + ${#numbers.formatDecimal(entry.value.hargaSatuan,0,'COMMA',0,'POINT')}"></span>
+                            (<span th:text="${entry.value.ukuran}"></span>) =
+                            <b th:text="'Rp ' + ${#numbers.formatDecimal(entry.value.subtotal,0,'COMMA',0,'POINT')}"></b>
+                        </li>
+                    </ul>
+                </td>
+
+                <td th:text="'Rp ' + ${#numbers.formatDecimal(dl.totalHargaFinal,0,'COMMA',0,'POINT')}"></td>
+
+                <td>
+                    <a th:href="@{/transaksi/delivery/{id}(id=${dl.id})}">
+                        <button>Edit</button>
+                    </a>
+
+                    <form th:action="@{/transaksi/delivery/delete/{id}(id=${dl.id})}" method="post"
+                        style="display:inline;">
+                        <button onclick="return confirm('Hapus?')">Delete</button>
+                    </form>
+                </td>
+            </tr>
+
+            <tr th:if="${#lists.isEmpty(deliveryList)}">
+                <td colspan="6"><i>Belum ada delivery tersimpan</i></td>
+            </tr>
+        </tbody>
+    </table>
+
+    <p><a th:href="@{/transaksi}">Kembali</a></p>
+
+</body>
+
+</html>

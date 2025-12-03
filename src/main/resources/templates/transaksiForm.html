@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
+
+<head>
+    <meta charset="utf-8" />
+    <title>Order - [[${tipe}]]</title>
+    <link rel="stylesheet" th:href="@{/Table.css}" />
+</head>
+
+<body>
+    <h2 th:text="'Buat Pesanan - ' + ${tipe}">Buat Pesanan</h2>
+
+    <!-- form detail tipe (dinein/delivery/takeaway) -->
+    <form th:action="@{|/transaksi/${tipe}|}" th:object="${transaksi}" method="post">
+        <div th:switch="${tipe}">
+            <div th:case="'dinein'">
+                <label>No Meja: <input type="text" th:field="*{sitNo}" /></label>
+                <label>Pax: <input type="text" th:field="*{pax}" /></label>
+            </div>
+            <div th:case="'delivery'">
+                <label>Metode Pengantaran: <input type="text" th:field="*{metodePengantaran}" /></label>
+                <label>Lokasi Pengantaran: <input type="text" th:field="*{lokasiPengantaran}" /></label>
+            </div>
+            <div th:case="'takeaway'">
+                <label>Packaging Type: <input type="text" th:field="*{packagingType}" /></label>
+                <label>Pickup Time: <input type="text" th:field="*{pickupTime}" /></label>
+            </div>
+        </div>
+
+        <!-- tombol submit (simpan transaksi) -->
+        <button type="submit" name="submit">Submit Pesanan</button>
+    </form>
+
+    <hr />
+
+    <!-- Tambah Menu ke pesanan (in-memory / session) -->
+    <form th:action="@{|/transaksi/${tipe}|}" method="post" th:object="${transaksi}">
+        <input type="hidden" name="__csrf" th:value="${_csrf.token}" />
+        <label>Pilih Menu:
+            <select name="menu">
+                <option th:each="m : ${menuList}" th:value="${m.menuId}" th:text="${m.namaMenu + ' - ' + m.harga}">
+                </option>
+            </select>
+        </label>
+        <label>Qty: <input type="number" name="qty" min="1" value="1" /></label>
+        <label>Ukuran:
+            <select name="ukuran">
+                <option value="Small">Small</option>
+                <option value="Large">Large (+5000)</option>
+            </select>
+        </label>
+        <button type="submit" name="addMenu">Tambah Menu</button>
+    </form>
+
+    <hr />
+
+    <!-- Tampilkan daftar pesanan sementara (session) -->
+    <h3>Daftar Pesanan</h3>
+    <table class="styled-table">
+        <thead>
+            <tr>
+                <th>Menu</th>
+                <th>Qty</th>
+                <th>Harga/unit</th>
+                <th>Subtotal</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr th:each="entry : ${transaksi.pesanan.entrySet()}">
+                <td th:text="${#lists.find(menuList, m -> m.menuId == entry.key)?.namaMenu}">Menu</td>
+                <td th:text="${entry.value.jumlah}">1</td>
+                <td th:text="${entry.value.hargaJual}">0</td>
+                <td th:text="${entry.value.getSubtotal()}">0</td>
+            </tr>
+        </tbody>
+        <tfoot>
+            <tr>
+                <td colspan="3">Subtotal</td>
+                <td th:text="${transaksi.hitungSubtotal()}">0</td>
+            </tr>
+            <tr th:if="${tipe=='dinein'}">
+                <td colspan="3">Service Fee</td>
+                <td>5000</td>
+            </tr>
+            <tr th:if="${tipe=='delivery'}">
+                <td colspan="3">Ongkir (contoh)</td>
+                <td>10000</td>
+            </tr>
+            <tr>
+                <td colspan="3"><strong>Total</strong></td>
+                <td th:text="${transaksi.getTotalHarga()}">0</td>
+            </tr>
+        </tfoot>
+    </table>
+
+    <p><a th:href="@{/transaksi/list/{tipe}(tipe=${tipe})}">Lihat semua transaksi ${tipe}</a></p>
+</body>
+
+</html>

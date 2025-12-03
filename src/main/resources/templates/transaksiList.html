@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="utf-8">
+    <title>List Transaksi</title>
+</head>
+
+<body>
+    <h2 th:text="'List transaksi ' + ${tipe}">List</h2>
+    <table>
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>NoOrder</th>
+                <th>Detail Pesanan</th>
+                <th>Total</th>
+                <th>Aksi</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr th:each="t : ${list}">
+                <td th:text="${t.id}">id</td>
+                <td th:text="${t.orderNo}">ord</td>
+                <td>
+                    <table>
+                        <tr th:each="e : ${t.pesanan.entrySet()}">
+                            <td
+                                th:text="${#lists.find(${menuService.getAllMenus()}, m -> m.menuId == e.key)?.namaMenu}">
+                                menu</td>
+                            <td th:text="${e.value.jumlah}">qty</td>
+                            <td th:text="${e.value.hargaJual}">harga</td>
+                        </tr>
+                    </table>
+                </td>
+                <td th:text="${t.totalHarga}">0</td>
+                <td>
+                    <a th:href="@{|/transaksi/${tipe}/edit/${t.id}|}">Edit</a>
+                    <a th:href="@{|/transaksi/${tipe}/delete/${t.id}|}">Delete</a>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</body>
+
+</html>

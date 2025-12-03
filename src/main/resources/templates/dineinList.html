@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>DineIn-List</title>
+<link rel="stylesheet" th:href="@{/css/style.css}">
+    <link rel="stylesheet" type="text/css" href="/css/dinein.css"/>
+</head>
+<body>
+        <h2>Daftar Transaksi Dine-In</h2>
+
+    <table>
+        <thead>
+            <tr>
+                <th>Order No</th>
+                <th>Detail Pesanan</th>
+                <th>Total</th>
+                <th>No Kursi</th>
+                <th>Pax</th>
+                <th>Aksi</th>
+            </tr>
+        </thead>
+
+        <tbody>
+            <tr th:each="d : ${dineInList}">
+                <td th:text="${d.orderNo}"></td>
+
+                <!-- DETAIL PESANAN -->
+                <td>
+                    <ul>
+                        <li th:each="entry : ${d.pesanan}">
+                            <span th:text="${menuById[entry.key.split('_')[0]].namaMenu}"></span> -
+                            <span th:text="${entry.value.qty}"></span> x
+                            <span th:text="'Rp ' + ${#numbers.formatDecimal(entry.value.hargaSatuan,0,'COMMA',0,'POINT')}"></span>
+                            (<span th:text="${entry.value.ukuran}"></span>) =
+                            <b th:text="'Rp ' + ${#numbers.formatDecimal(entry.value.subtotal,0,'COMMA',0,'POINT')}"></b>
+                        </li>
+                    </ul>
+                </td>
+
+                <td th:text="'Rp ' + ${#numbers.formatDecimal(d.totalHargaFinal,0,'COMMA',0,'POINT')}"></td>
+                <td th:text="${d.sitNo}"></td>
+                <td th:text="${d.pax}"></td>
+
+                <td>
+                    <a th:href="@{/transaksi/dinein/{id}(id=${d.id})}">
+                        <button>Edit</button>
+                    </a>
+
+                    <form th:action="@{/transaksi/dinein/delete/{id}(id=${d.id})}"
+                          method="post" style="display:inline;">
+                        <button onclick="return confirm('Hapus?')">Delete</button>
+                    </form>
+                </td>
+            </tr>
+
+            <tr th:if="${#lists.isEmpty(dineInList)}">
+                <td colspan="7"><i>Belum ada dine-in tersimpan</i></td>
+            </tr>
+        </tbody>
+    </table>
+
+    <p><a th:href="@{/transaksi}">Kembali</a></p>
+
+</body>
+</html>

@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Edit Dine In</title>
+    <link rel="stylesheet" th:href="@{/css/style.css}">
+    <link rel="stylesheet" type="text/css" href="/css/edit.css" />
+
+</head>
+<body>
+     <h2>Edit Dine-In</h2>
+
+<form th:action="@{/transaksi/dinein/konfirm/edit/save}" method="post">
+
+    <p>
+        Nomor Meja:
+        <input type="number" name="sitNo"  min="1" required th:value="${sit}">
+    </p>
+
+    <p>
+        Jumlah Orang (Pax):
+        <input type="number" name="pax" min="1" required th:value="${pax}">
+    </p>
+
+    <button type="submit">Simpan</button>
+</form>
+
+<p><a th:href="@{/transaksi/dinein/konfirm}">Kembali</a></p>
+
+</body>
+</html>
